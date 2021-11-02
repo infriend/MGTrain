@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magus.a4.dao.EnrollmentMapper">
+  <resultMap id="BaseResultMap" type="com.magus.a4.pojo.Enrollment">
+    <!--@mbg.generated-->
+    <!--@Table enrollment-->
+    <id column="EnrollUID" jdbcType="VARCHAR" property="enrolluid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="auctionid" jdbcType="VARCHAR" property="auctionid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    EnrollUID, username, auctionid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from enrollment
+    where EnrollUID = #{enrolluid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from enrollment
+    where EnrollUID = #{enrolluid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.magus.a4.pojo.Enrollment">
+    <!--@mbg.generated-->
+    insert into enrollment (EnrollUID, username, auctionid
+      )
+    values (#{enrolluid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{auctionid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.magus.a4.pojo.Enrollment">
+    <!--@mbg.generated-->
+    insert into enrollment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="enrolluid != null">
+        EnrollUID,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="auctionid != null">
+        auctionid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="enrolluid != null">
+        #{enrolluid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionid != null">
+        #{auctionid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.magus.a4.pojo.Enrollment">
+    <!--@mbg.generated-->
+    update enrollment
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionid != null">
+        auctionid = #{auctionid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EnrollUID = #{enrolluid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.magus.a4.pojo.Enrollment">
+    <!--@mbg.generated-->
+    update enrollment
+    set username = #{username,jdbcType=VARCHAR},
+      auctionid = #{auctionid,jdbcType=VARCHAR}
+    where EnrollUID = #{enrolluid,jdbcType=VARCHAR}
+  </update>
+</mapper>

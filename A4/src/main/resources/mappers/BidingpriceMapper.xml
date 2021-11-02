@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magus.a4.dao.BidingpriceMapper">
+  <resultMap id="BaseResultMap" type="com.magus.a4.pojo.Bidingprice">
+    <!--@mbg.generated-->
+    <!--@Table bidingprice-->
+    <id column="bidingUID" jdbcType="VARCHAR" property="bidinguid" />
+    <result column="bidingNo" jdbcType="VARCHAR" property="bidingno" />
+    <result column="auctionid" jdbcType="VARCHAR" property="auctionid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    bidingUID, bidingNo, auctionid, username, price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from bidingprice
+    where bidingUID = #{bidinguid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from bidingprice
+    where bidingUID = #{bidinguid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.magus.a4.pojo.Bidingprice">
+    <!--@mbg.generated-->
+    insert into bidingprice (bidingUID, bidingNo, auctionid, 
+      username, price)
+    values (#{bidinguid,jdbcType=VARCHAR}, #{bidingno,jdbcType=VARCHAR}, #{auctionid,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.magus.a4.pojo.Bidingprice">
+    <!--@mbg.generated-->
+    insert into bidingprice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bidinguid != null">
+        bidingUID,
+      </if>
+      <if test="bidingno != null">
+        bidingNo,
+      </if>
+      <if test="auctionid != null">
+        auctionid,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bidinguid != null">
+        #{bidinguid,jdbcType=VARCHAR},
+      </if>
+      <if test="bidingno != null">
+        #{bidingno,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionid != null">
+        #{auctionid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.magus.a4.pojo.Bidingprice">
+    <!--@mbg.generated-->
+    update bidingprice
+    <set>
+      <if test="bidingno != null">
+        bidingNo = #{bidingno,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionid != null">
+        auctionid = #{auctionid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where bidingUID = #{bidinguid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.magus.a4.pojo.Bidingprice">
+    <!--@mbg.generated-->
+    update bidingprice
+    set bidingNo = #{bidingno,jdbcType=VARCHAR},
+      auctionid = #{auctionid,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL}
+    where bidingUID = #{bidinguid,jdbcType=VARCHAR}
+  </update>
+</mapper>

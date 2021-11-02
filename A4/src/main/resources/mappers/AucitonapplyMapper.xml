@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magus.a4.dao.AucitonapplyMapper">
+  <resultMap id="BaseResultMap" type="com.magus.a4.pojo.Aucitonapply">
+    <!--@mbg.generated-->
+    <!--@Table aucitonapply-->
+    <id column="applyid" jdbcType="VARCHAR" property="applyid" />
+    <result column="lotname" jdbcType="VARCHAR" property="lotname" />
+    <result column="reserveprice" jdbcType="DECIMAL" property="reserveprice" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="status" jdbcType="DECIMAL" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    applyid, lotname, reserveprice, username, description, `status`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from aucitonapply
+    where applyid = #{applyid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from aucitonapply
+    where applyid = #{applyid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.magus.a4.pojo.Aucitonapply">
+    <!--@mbg.generated-->
+    insert into aucitonapply (applyid, lotname, reserveprice, 
+      username, description, `status`
+      )
+    values (#{applyid,jdbcType=VARCHAR}, #{lotname,jdbcType=VARCHAR}, #{reserveprice,jdbcType=DECIMAL}, 
+      #{username,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.magus.a4.pojo.Aucitonapply">
+    <!--@mbg.generated-->
+    insert into aucitonapply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="applyid != null">
+        applyid,
+      </if>
+      <if test="lotname != null">
+        lotname,
+      </if>
+      <if test="reserveprice != null">
+        reserveprice,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="applyid != null">
+        #{applyid,jdbcType=VARCHAR},
+      </if>
+      <if test="lotname != null">
+        #{lotname,jdbcType=VARCHAR},
+      </if>
+      <if test="reserveprice != null">
+        #{reserveprice,jdbcType=DECIMAL},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.magus.a4.pojo.Aucitonapply">
+    <!--@mbg.generated-->
+    update aucitonapply
+    <set>
+      <if test="lotname != null">
+        lotname = #{lotname,jdbcType=VARCHAR},
+      </if>
+      <if test="reserveprice != null">
+        reserveprice = #{reserveprice,jdbcType=DECIMAL},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where applyid = #{applyid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.magus.a4.pojo.Aucitonapply">
+    <!--@mbg.generated-->
+    update aucitonapply
+    set lotname = #{lotname,jdbcType=VARCHAR},
+      reserveprice = #{reserveprice,jdbcType=DECIMAL},
+      username = #{username,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=DECIMAL}
+    where applyid = #{applyid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magus.a4.dao.AuctionMapper">
+  <resultMap id="BaseResultMap" type="com.magus.a4.pojo.Auction">
+    <!--@mbg.generated-->
+    <!--@Table auction-->
+    <id column="auctionid" jdbcType="VARCHAR" property="auctionid" />
+    <result column="lotname" jdbcType="VARCHAR" property="lotname" />
+    <result column="startingprice" jdbcType="DECIMAL" property="startingprice" />
+    <result column="reserveprice" jdbcType="DECIMAL" property="reserveprice" />
+    <result column="deposit" jdbcType="DECIMAL" property="deposit" />
+    <result column="increment" jdbcType="DECIMAL" property="increment" />
+    <result column="lawinfo" jdbcType="VARCHAR" property="lawinfo" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="salecondition" jdbcType="VARCHAR" property="salecondition" />
+    <result column="status" jdbcType="DECIMAL" property="status" />
+    <result column="auctioneer" jdbcType="VARCHAR" property="auctioneer" />
+    <result column="starttime" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="endtime" jdbcType="TIMESTAMP" property="endtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    auctionid, lotname, startingprice, reserveprice, deposit, `increment`, lawinfo, description, 
+    salecondition, `status`, auctioneer, starttime, endtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from auction
+    where auctionid = #{auctionid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from auction
+    where auctionid = #{auctionid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.magus.a4.pojo.Auction">
+    <!--@mbg.generated-->
+    insert into auction (auctionid, lotname, startingprice, 
+      reserveprice, deposit, `increment`, 
+      lawinfo, description, salecondition, 
+      `status`, auctioneer, starttime, 
+      endtime)
+    values (#{auctionid,jdbcType=VARCHAR}, #{lotname,jdbcType=VARCHAR}, #{startingprice,jdbcType=DECIMAL}, 
+      #{reserveprice,jdbcType=DECIMAL}, #{deposit,jdbcType=DECIMAL}, #{increment,jdbcType=DECIMAL}, 
+      #{lawinfo,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{salecondition,jdbcType=VARCHAR}, 
+      #{status,jdbcType=DECIMAL}, #{auctioneer,jdbcType=VARCHAR}, #{starttime,jdbcType=TIMESTAMP}, 
+      #{endtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.magus.a4.pojo.Auction">
+    <!--@mbg.generated-->
+    insert into auction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="auctionid != null">
+        auctionid,
+      </if>
+      <if test="lotname != null">
+        lotname,
+      </if>
+      <if test="startingprice != null">
+        startingprice,
+      </if>
+      <if test="reserveprice != null">
+        reserveprice,
+      </if>
+      <if test="deposit != null">
+        deposit,
+      </if>
+      <if test="increment != null">
+        `increment`,
+      </if>
+      <if test="lawinfo != null">
+        lawinfo,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="salecondition != null">
+        salecondition,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="auctioneer != null">
+        auctioneer,
+      </if>
+      <if test="starttime != null">
+        starttime,
+      </if>
+      <if test="endtime != null">
+        endtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="auctionid != null">
+        #{auctionid,jdbcType=VARCHAR},
+      </if>
+      <if test="lotname != null">
+        #{lotname,jdbcType=VARCHAR},
+      </if>
+      <if test="startingprice != null">
+        #{startingprice,jdbcType=DECIMAL},
+      </if>
+      <if test="reserveprice != null">
+        #{reserveprice,jdbcType=DECIMAL},
+      </if>
+      <if test="deposit != null">
+        #{deposit,jdbcType=DECIMAL},
+      </if>
+      <if test="increment != null">
+        #{increment,jdbcType=DECIMAL},
+      </if>
+      <if test="lawinfo != null">
+        #{lawinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="salecondition != null">
+        #{salecondition,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="auctioneer != null">
+        #{auctioneer,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.magus.a4.pojo.Auction">
+    <!--@mbg.generated-->
+    update auction
+    <set>
+      <if test="lotname != null">
+        lotname = #{lotname,jdbcType=VARCHAR},
+      </if>
+      <if test="startingprice != null">
+        startingprice = #{startingprice,jdbcType=DECIMAL},
+      </if>
+      <if test="reserveprice != null">
+        reserveprice = #{reserveprice,jdbcType=DECIMAL},
+      </if>
+      <if test="deposit != null">
+        deposit = #{deposit,jdbcType=DECIMAL},
+      </if>
+      <if test="increment != null">
+        `increment` = #{increment,jdbcType=DECIMAL},
+      </if>
+      <if test="lawinfo != null">
+        lawinfo = #{lawinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="salecondition != null">
+        salecondition = #{salecondition,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="auctioneer != null">
+        auctioneer = #{auctioneer,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where auctionid = #{auctionid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.magus.a4.pojo.Auction">
+    <!--@mbg.generated-->
+    update auction
+    set lotname = #{lotname,jdbcType=VARCHAR},
+      startingprice = #{startingprice,jdbcType=DECIMAL},
+      reserveprice = #{reserveprice,jdbcType=DECIMAL},
+      deposit = #{deposit,jdbcType=DECIMAL},
+      `increment` = #{increment,jdbcType=DECIMAL},
+      lawinfo = #{lawinfo,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      salecondition = #{salecondition,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=DECIMAL},
+      auctioneer = #{auctioneer,jdbcType=VARCHAR},
+      starttime = #{starttime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP}
+    where auctionid = #{auctionid,jdbcType=VARCHAR}
+  </update>
+</mapper>
