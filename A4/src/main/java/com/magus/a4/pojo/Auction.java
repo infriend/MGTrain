@@ -31,4 +31,6 @@ public class Auction {
     private Date starttime;
 
     private Date endtime;
+
+    private String winner;
 }

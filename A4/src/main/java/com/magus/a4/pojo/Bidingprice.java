@@ -1,5 +1,7 @@
 package com.magus.a4.pojo;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import lombok.Data;
 
 @Data
@@ -12,5 +14,7 @@ public class Bidingprice {
 
     private String username;
 
-    private Long price;
+    private BigDecimal price;
+
+    private Date bidingtime;
 }

@@ -1,7 +1,7 @@
 package com.magus.a4.dao;
 
 import com.magus.a4.pojo.Bidingprice;
-import org.apache.ibatis.annotations.Mapper;
+import com.magus.a4.vo.SimpleBidingPrice;import org.apache.ibatis.annotations.Mapper;import java.util.List;
 
 @Mapper
 public interface BidingpriceMapper {
@@ -16,4 +16,8 @@ public interface BidingpriceMapper {
     int updateByPrimaryKeySelective(Bidingprice record);
 
     int updateByPrimaryKey(Bidingprice record);
+
+    List<SimpleBidingPrice> getBidingList(String auctionid);
+
+    Bidingprice getMaxBidingPrice(String auctionid);
 }

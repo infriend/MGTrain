@@ -17,11 +17,12 @@
     <result column="auctioneer" jdbcType="VARCHAR" property="auctioneer" />
     <result column="starttime" jdbcType="TIMESTAMP" property="starttime" />
     <result column="endtime" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="winner" jdbcType="VARCHAR" property="winner" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     auctionid, lotname, startingprice, reserveprice, deposit, `increment`, lawinfo, description, 
-    salecondition, `status`, auctioneer, starttime, endtime
+    salecondition, `status`, auctioneer, starttime, endtime, winner
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -41,12 +42,12 @@
       reserveprice, deposit, `increment`, 
       lawinfo, description, salecondition, 
       `status`, auctioneer, starttime, 
-      endtime)
+      endtime, winner)
     values (#{auctionid,jdbcType=VARCHAR}, #{lotname,jdbcType=VARCHAR}, #{startingprice,jdbcType=DECIMAL}, 
       #{reserveprice,jdbcType=DECIMAL}, #{deposit,jdbcType=DECIMAL}, #{increment,jdbcType=DECIMAL}, 
       #{lawinfo,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{salecondition,jdbcType=VARCHAR}, 
       #{status,jdbcType=DECIMAL}, #{auctioneer,jdbcType=VARCHAR}, #{starttime,jdbcType=TIMESTAMP}, 
-      #{endtime,jdbcType=TIMESTAMP})
+      #{endtime,jdbcType=TIMESTAMP}, #{winner,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.magus.a4.pojo.Auction">
     <!--@mbg.generated-->
@@ -91,6 +92,9 @@
       <if test="endtime != null">
         endtime,
       </if>
+      <if test="winner != null">
+        winner,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="auctionid != null">
@@ -131,6 +135,9 @@
       </if>
       <if test="endtime != null">
         #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="winner != null">
+        #{winner,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -174,6 +181,9 @@
       <if test="endtime != null">
         endtime = #{endtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="winner != null">
+        winner = #{winner,jdbcType=VARCHAR},
+      </if>
     </set>
     where auctionid = #{auctionid,jdbcType=VARCHAR}
   </update>
@@ -191,7 +201,13 @@
       `status` = #{status,jdbcType=DECIMAL},
       auctioneer = #{auctioneer,jdbcType=VARCHAR},
       starttime = #{starttime,jdbcType=TIMESTAMP},
-      endtime = #{endtime,jdbcType=TIMESTAMP}
+      endtime = #{endtime,jdbcType=TIMESTAMP},
+      winner = #{winner,jdbcType=VARCHAR}
     where auctionid = #{auctionid,jdbcType=VARCHAR}
   </update>
+
+  <select id="getAuctionsByAuctioneer" resultType="com.magus.a4.vo.SimpleAuction">
+    select auctionid, lotname, startingprice, starttime, endtime from auction
+    where auctionid = #{auctioneer}
+    </select>
 </mapper>

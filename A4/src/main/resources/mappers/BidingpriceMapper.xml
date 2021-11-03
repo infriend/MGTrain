@@ -9,10 +9,11 @@
     <result column="auctionid" jdbcType="VARCHAR" property="auctionid" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="bidingtime" jdbcType="TIMESTAMP" property="bidingtime" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    bidingUID, bidingNo, auctionid, username, price
+    bidingUID, bidingNo, auctionid, username, price, bidingtime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -29,9 +30,11 @@
   <insert id="insert" parameterType="com.magus.a4.pojo.Bidingprice">
     <!--@mbg.generated-->
     insert into bidingprice (bidingUID, bidingNo, auctionid, 
-      username, price)
+      username, price, bidingtime
+      )
     values (#{bidinguid,jdbcType=VARCHAR}, #{bidingno,jdbcType=VARCHAR}, #{auctionid,jdbcType=VARCHAR}, 
-      #{username,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL})
+      #{username,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{bidingtime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.magus.a4.pojo.Bidingprice">
     <!--@mbg.generated-->
@@ -52,6 +55,9 @@
       <if test="price != null">
         price,
       </if>
+      <if test="bidingtime != null">
+        bidingtime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="bidinguid != null">
@@ -68,6 +74,9 @@
       </if>
       <if test="price != null">
         #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="bidingtime != null">
+        #{bidingtime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -87,6 +96,9 @@
       <if test="price != null">
         price = #{price,jdbcType=DECIMAL},
       </if>
+      <if test="bidingtime != null">
+        bidingtime = #{bidingtime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where bidingUID = #{bidinguid,jdbcType=VARCHAR}
   </update>
@@ -96,7 +108,19 @@
     set bidingNo = #{bidingno,jdbcType=VARCHAR},
       auctionid = #{auctionid,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL}
+      price = #{price,jdbcType=DECIMAL},
+      bidingtime = #{bidingtime,jdbcType=TIMESTAMP}
     where bidingUID = #{bidinguid,jdbcType=VARCHAR}
   </update>
+
+  <select id="getBidingList" resultType="com.magus.a4.vo.SimpleBidingPrice">
+    select bidingNo, price, bidingtime from bidingprice
+    where auctionid = #{auctionid}
+    </select>
+
+  <select id="getMaxBidingPrice" resultMap="BaseResultMap">
+    select * from bidingprice
+    where auctionid = #{auctionid} and price = (select Max(price) from bidingprice)
+    limit 1;
+  </select>
 </mapper>

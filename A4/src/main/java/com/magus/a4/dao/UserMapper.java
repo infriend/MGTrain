@@ -1,9 +1,9 @@
 package com.magus.a4.dao;
 
 import com.magus.a4.pojo.User;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
-@Mapper
+@Repository
 public interface UserMapper {
     int deleteByPrimaryKey(String username);
 

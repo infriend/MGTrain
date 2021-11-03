@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
-public class Aucitonapply {
+public class Auctionapply {
     private String applyid;
 
     private String lotname;
