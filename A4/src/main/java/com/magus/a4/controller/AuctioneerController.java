@@ -5,12 +5,15 @@ import com.magus.a4.pojo.Result;
 import com.magus.a4.service.AuctioneerService;
 import com.magus.a4.utils.JwtUtil;
 import com.magus.a4.utils.ResultUtil;
+import com.magus.a4.vo.SimpleAuction;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @RequestMapping("auctioneer")
 public class AuctioneerController {
@@ -94,6 +97,8 @@ public class AuctioneerController {
     @RequestMapping(value = "/myauctions", method = RequestMethod.POST)
     @RequiresRoles("auctioneer")
     public ModelAndView myAuctions(){
+        String username = jwtUtil.getUnionid();
+        List<SimpleAuction> simpleAuctionList = auctioneerService.myAuctions(username);
         return null;
     }
 

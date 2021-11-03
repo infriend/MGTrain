@@ -210,4 +210,14 @@
     select auctionid, lotname, startingprice, starttime, endtime from auction
     where auctionid = #{auctioneer}
     </select>
+
+  <select id="getAuctionsGoingOn" resultType="com.magus.a4.pojo.Auction">
+    select * from auction
+    where status=1
+  </select>
+
+  <select id="getAuctionsByUser" resultType="com.magus.a4.vo.SimpleAuction">
+
+
+  </select>
 </mapper>

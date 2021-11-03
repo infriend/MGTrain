@@ -12,6 +12,7 @@ import com.magus.a4.vo.SimpleAuction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -40,14 +41,18 @@ public class AuctioneerServiceImplement implements AuctioneerService {
 
     @Override
     public int modifyAuction(Auction auction) {
-        return auctionMapper.updateByPrimaryKey(auction);
+        Auction oldauction = auctionMapper.selectByPrimaryKey(auction.getAuctionid());
+        if (oldauction.getStarttime().before(new Date())){
+            return auctionMapper.updateByPrimaryKey(auction);
+        } else return 0;
+
     }
 
     @Override
     public int suspendAuction(String auctionid, String username) {
         Auction temp = auctionMapper.selectByPrimaryKey(auctionid);
         if (temp.getAuctioneer().equals(username)){
-            temp.setStatus((short) 0);//0暂停，1正常，2结束
+            temp.setStatus((short) 0);//0暂停，1正常，2结束但未支付，3结束已支付，4反悔
             return auctionMapper.updateByPrimaryKey(temp);
         } else {
             return 0;
@@ -80,6 +85,6 @@ public class AuctioneerServiceImplement implements AuctioneerService {
 
     @Override
     public List<SimpleAuction> myAuctions(String username) {
-        return null;
+        return auctionMapper.getAuctionsByAuctioneer(username);
     }
 }

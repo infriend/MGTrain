@@ -77,4 +77,9 @@
       auctionid = #{auctionid,jdbcType=VARCHAR}
     where EnrollUID = #{enrolluid,jdbcType=VARCHAR}
   </update>
+
+  <select id="getByAuctionidAndUsername" resultMap="BaseResultMap">
+    select * from enrollment
+    where auctionid=#{auctionid,jdbcType=VARCHAR} and username=#{username}
+    </select>
 </mapper>

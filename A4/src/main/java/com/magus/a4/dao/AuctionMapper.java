@@ -21,4 +21,8 @@ public interface AuctionMapper {
     int updateByPrimaryKey(Auction record);
 
     List<SimpleAuction> getAuctionsByAuctioneer(String auctioneer);
+
+    List<Auction> getAuctionsGoingOn();
+
+    List<SimpleAuction> getAuctionsByUser(String username);
 }

@@ -2,7 +2,10 @@ package com.magus.a4.dao;
 
 import com.magus.a4.pojo.Enrollment;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface EnrollmentMapper {
@@ -17,4 +20,7 @@ public interface EnrollmentMapper {
     int updateByPrimaryKeySelective(Enrollment record);
 
     int updateByPrimaryKey(Enrollment record);
+
+    Enrollment getByAuctionidAndUsername(@Param("auctionid") String auctionid,
+                                         @Param("username") String username);
 }

@@ -18,8 +18,14 @@ public class LoginController {
         return ResultUtil.success(commonService.login(loginvo));
     }
 
+    @RequestMapping(value = "common/userregister", method = RequestMethod.POST)
+    public Result userRegister(){
+        return null;
+    }
 
-
-
+    @RequestMapping(value = "common/auctioneerregister", method = RequestMethod.POST)
+    public Result auctioneerRegister(){
+        return null;
+    }
 
 }
