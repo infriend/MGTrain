@@ -6,12 +6,12 @@
     <!--@Table `user`-->
     <id column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="sex" jdbcType="DECIMAL" property="sex" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="status" jdbcType="DECIMAL" property="status" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    username, `password`, sex, phone
+    username, `password`, `status`, `role`
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -27,10 +27,10 @@
   </delete>
   <insert id="insert" parameterType="com.magus.a4.pojo.User">
     <!--@mbg.generated-->
-    insert into `user` (username, `password`, sex, 
-      phone)
-    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{sex,jdbcType=DECIMAL}, 
-      #{phone,jdbcType=VARCHAR})
+    insert into `user` (username, `password`, `status`, 
+      `role`)
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, 
+      #{role,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.magus.a4.pojo.User">
     <!--@mbg.generated-->
@@ -42,11 +42,11 @@
       <if test="password != null">
         `password`,
       </if>
-      <if test="sex != null">
-        sex,
+      <if test="status != null">
+        `status`,
       </if>
-      <if test="phone != null">
-        phone,
+      <if test="role != null">
+        `role`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -56,11 +56,11 @@
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="sex != null">
-        #{sex,jdbcType=DECIMAL},
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
       </if>
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -71,11 +71,11 @@
       <if test="password != null">
         `password` = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="sex != null">
-        sex = #{sex,jdbcType=DECIMAL},
+      <if test="status != null">
+        `status` = #{status,jdbcType=DECIMAL},
       </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
+      <if test="role != null">
+        `role` = #{role,jdbcType=VARCHAR},
       </if>
     </set>
     where username = #{username,jdbcType=VARCHAR}
@@ -84,8 +84,8 @@
     <!--@mbg.generated-->
     update `user`
     set `password` = #{password,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=DECIMAL},
-      phone = #{phone,jdbcType=VARCHAR}
+      `status` = #{status,jdbcType=DECIMAL},
+      `role` = #{role,jdbcType=VARCHAR}
     where username = #{username,jdbcType=VARCHAR}
   </update>
 </mapper>

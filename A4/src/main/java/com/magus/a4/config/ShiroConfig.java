@@ -43,8 +43,7 @@ public class ShiroConfig {
         //定义拦截规则
         Map<String, String> filterRuleMap = new LinkedHashMap<>();
         //登陆相关api不需要被过滤器拦截
-        filterRuleMap.put("/wx/login", "anon");
-        filterRuleMap.put("/pc/login", "anon");
+
         // 所有请求通过JWT Filter
         filterRuleMap.put("/**", "token");
         bean.setFilterChainDefinitionMap(filterRuleMap);

@@ -3,22 +3,21 @@ package com.magus.a4.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.magus.drugtrials.dao.UserInfoMapper;
-import com.magus.drugtrials.dto.UserDto;
+import com.magus.a4.dao.UserMapper;
+import com.magus.a4.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @Component
 //@PropertySource("classpath:application.yml")
 public class JwtUtil {
     @Autowired
-    UserInfoMapper userInfoMapper;
+    UserMapper userInfoMapper;
 
     /**
      * JWT 自定义密钥 在配置文件进行配置
@@ -38,7 +37,7 @@ public class JwtUtil {
      * @param user 用户信息
      * @return 返回 jwt token
      */
-    public String createTokenByWxAccount(UserDto user) {
+    public String createTokenByWxAccount(User user) {
         //JWT 随机ID,做为验证的key
         String jwtId = UUID.randomUUID().toString();
         //1 . 加密算法进行签名得到token
@@ -46,7 +45,7 @@ public class JwtUtil {
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
         //生成token
         String token = JWT.create()
-                .withClaim("wxUnionid", user.getUserUnionid())
+                .withClaim("username", user.getUsername())
                 .withClaim("jwt-id", jwtId)
                 //JWT 配置过期时间的正确姿势，因为单位是毫秒，所以需要乘1000
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRE_TIME * 1000))
@@ -68,16 +67,16 @@ public class JwtUtil {
             if (token==null){
                 return false;
             }
-            String unionid = getWxUnionidByToken(token);
+            String username = getWxUnionidByToken(token);
             String jwtId = getJwtIdByToken(token);
 
-            if(unionid==null || jwtId==null){
+            if(username==null || jwtId==null){
                 return false;
             }
 
             //查找用户信息
-            List<UserDto> userDtos = userInfoMapper.selectByUnionid(unionid);
-            if (userDtos.isEmpty()){
+            User userDtos = userInfoMapper.selectByPrimaryKey(username);
+            if (userDtos == null){
                 return false;
             }
 
@@ -104,7 +103,7 @@ public class JwtUtil {
      * 根据Token获取wxUnionid(注意坑点 : 就算token不正确，也有可能解密出wxUnionid,同下)
      */
     public String getWxUnionidByToken(String token)  {
-        return JWT.decode(token).getClaim("wxUnionid").asString();
+        return JWT.decode(token).getClaim("username").asString();
     }
 
     /**

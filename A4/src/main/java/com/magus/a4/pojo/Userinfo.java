@@ -3,8 +3,10 @@ package com.magus.a4.pojo;
 import lombok.Data;
 
 @Data
-public class Admin {
+public class Userinfo {
     private String username;
 
-    private String password;
+    private Short sex;
+
+    private String phone;
 }

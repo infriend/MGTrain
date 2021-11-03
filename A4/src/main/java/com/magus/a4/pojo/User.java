@@ -8,7 +8,7 @@ public class User {
 
     private String password;
 
-    private Short sex;
+    private Short status;
 
-    private String phone;
+    private String role;
 }

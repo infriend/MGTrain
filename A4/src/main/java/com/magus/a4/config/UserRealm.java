@@ -1,9 +1,8 @@
 package com.magus.a4.config;
 
 
-import com.magus.drugtrials.dao.UserInfoMapper;
-import com.magus.drugtrials.dto.UserDto;
-import com.magus.a4.handler.GlobalException;
+import com.magus.a4.dao.UserMapper;
+import com.magus.a4.pojo.User;
 import com.magus.a4.utils.JwtUtil;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -17,9 +16,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.OutputStream;
-import java.util.List;
-
 //自定义的Realm
 @Component
 public class UserRealm extends AuthorizingRealm {
@@ -27,7 +23,7 @@ public class UserRealm extends AuthorizingRealm {
     private JwtUtil jwtUtil;
 
     @Autowired
-    private UserInfoMapper userInfoMapper;
+    private UserMapper userInfoMapper;
 
     /**
      * 该方法是为了判断这个主体能否被本Realm处理，判断的方法是查看token是否为同一个类型
@@ -48,14 +44,11 @@ public class UserRealm extends AuthorizingRealm {
         //获取unionid
         String unionid = jwtUtil.getWxUnionidByToken(token);
         //查询用户信息
-        List<UserDto> userDtos = userInfoMapper.selectByUnionid(unionid);
+        User user = userInfoMapper.selectByPrimaryKey(unionid);
 
-        for(UserDto user : userDtos){
-            //获取用户角色
-            String roleName = user.getRoleName();
-            //添加角色
-            info.addRole(roleName);
-        }
+        String roleName = user.getRole();
+        info.addRole(roleName);
+
         return info;
     }
 

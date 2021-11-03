@@ -1,12 +1,10 @@
-package com.magus.a4.pojo;
+package com.magus.a4.vo;
 
 import lombok.Data;
 
 @Data
-public class Auctioneer {
+public class Loginvo {
     private String username;
-
     private String password;
-
-    private Short status;
+    private String role;
 }

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magus.a4.dao.UserinfoMapper">
+  <resultMap id="BaseResultMap" type="com.magus.a4.pojo.Userinfo">
+    <!--@mbg.generated-->
+    <!--@Table userinfo-->
+    <id column="username" jdbcType="VARCHAR" property="username" />
+    <result column="sex" jdbcType="DECIMAL" property="sex" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    username, sex, phone
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from userinfo
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from userinfo
+    where username = #{username,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.magus.a4.pojo.Userinfo">
+    <!--@mbg.generated-->
+    insert into userinfo (username, sex, phone
+      )
+    values (#{username,jdbcType=VARCHAR}, #{sex,jdbcType=DECIMAL}, #{phone,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.magus.a4.pojo.Userinfo">
+    <!--@mbg.generated-->
+    insert into userinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        username,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=DECIMAL},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.magus.a4.pojo.Userinfo">
+    <!--@mbg.generated-->
+    update userinfo
+    <set>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=DECIMAL},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where username = #{username,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.magus.a4.pojo.Userinfo">
+    <!--@mbg.generated-->
+    update userinfo
+    set sex = #{sex,jdbcType=DECIMAL},
+      phone = #{phone,jdbcType=VARCHAR}
+    where username = #{username,jdbcType=VARCHAR}
+  </update>
+</mapper>
