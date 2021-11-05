@@ -1,0 +1,1 @@
+jar -cvfm mytest.jar MANIFEST.MF -C Snake .

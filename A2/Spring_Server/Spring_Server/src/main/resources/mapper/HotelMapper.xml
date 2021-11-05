@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="train.a2.dao.HotelDao">
+    <select id="getAll" resultType="hotel">
+        select * from hotel
+    </select>
+    <select id="getByHotelname" parameterType="String" resultType="hotel">
+        select * from hotel where hotelname=#{hotelname}
+    </select>
+</mapper>

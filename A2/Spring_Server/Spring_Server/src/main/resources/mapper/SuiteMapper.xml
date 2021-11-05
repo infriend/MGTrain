@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="train.a2.dao.SuiteDao">
+    <select id="getByHotelname" parameterType="String" resultType="suite">
+        select * from suite_info where hotelname=#{hotelname}
+    </select>
+    <select id="getSuite" resultType="suite">
+        select * from suite_info where hotelname=#{hotelname} and suitetype=#{suitetype}
+    </select>
+    <select id="getPrice" resultType="Integer">
+        select price from suite_info where hotelname=#{hotelname} and suitetype=#{suitetype}
+    </select>
+    <update id="addNum">
+        update suite_info set num = num + #{num} where hotelname=#{hotelname} and suitetype=#{suitetype}
+    </update>
+</mapper>

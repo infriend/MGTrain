@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/lib/layui/layui.js"></script>
+    <title>addinventory</title>
+</head>
+<body>
+<div th:text="${num}"></div>
+<button value="秒杀" onclick="seckill()">秒杀</button>
+<button value="补货" onclick="addinventory()">补货</button>
+<input type="number" value="1" id="num">
+</body>
+<script>
+    function seckill() {
+        $.post("managerbuy", function (res) {
+            if (res){
+                alert("成功");
+                window.location.reload();
+            } else{
+                alert("失败");
+            }
+        })
+    }
+    function addinventory() {
+        let num = Number($("#num").val());
+        data = {"num": num}
+        $.post("addinventory", data, function (res) {
+            if (res){
+                alert("成功");
+                window.location.reload();
+            } else{
+                alert("失败");
+            }
+        })
+    }
+</script>
+
+</html>

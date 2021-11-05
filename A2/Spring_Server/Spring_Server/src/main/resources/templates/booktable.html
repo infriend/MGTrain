@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>欢迎页面-X-admin2.2</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <link rel="stylesheet" href="/css/font.css">
+        <link rel="stylesheet" href="/css/xadmin.css">
+        <script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/js/xadmin.js"></script>
+        <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+        <!--[if lt IE 9]>
+            <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+            <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]--></head>
+    
+    <body>
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form" action="/customer/book" method="post">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red">*</span>用户名</label>
+                        <div class="layui-input-inline">
+                            <div th:text="${username}"></div></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red">*</span>酒店名称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="L_pass" name="hotelname" required="" autocomplete="off" class="layui-input"
+                                   th:value="${hotelname}" readonly="readonly"></div>
+                    </div>
+
+
+                    <div class="layui-form-item"></div>
+                        <label class="layui-form-label">
+                            <span class="x-red">*</span>套房类型</label>
+                        <div class="layui-input-inline">
+                            <input type="text"  name="suitetype" required="" autocomplete="off" class="layui-input"
+                                   th:value="${suitetype}" readonly="readonly"></div>
+                    <div class="layui-form-item"></div>
+                    <label class="layui-form-label">
+                        <span class="x-red">*</span>套房单价</label>
+                    <div class="layui-inline">
+                        <div type="text" id="price" name="price" th:text="${price}"></div></div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red">*</span>入住日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="intime" id="intime" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red">*</span>离房日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="outtime" id="outtime" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red">*</span>入住人数</label>
+                        <div class="layui-input-inline">
+                            <input type="number" name="peoplenum" id="peoplenum" class="layui-input" value="1">
+                            </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red">*</span>有无儿童</label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="child" value=1 title="有">
+                            <input type="radio" name="child" value=0 title="无" checked></div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red">*</span>房间数</label>
+                        <div class="layui-input-inline">
+                                <input type="number" name="count" id="count" class="layui-input" onchange="calc()" value="1">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class="x-red">*</span>总价</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="payment" name="payment" required="" autocomplete="off" class="layui-input" readonly="readonly"
+                                   th:value="${price}"></div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"></label>
+                        <input type="submit" class="layui-btn" lay-filter="add" lay-submit=""></div>
+                </form>
+            </div>
+        </div>
+        <script>
+            layui.use(['form', 'layer', 'laydate'],
+                function() {
+                    $ = layui.jquery;
+                    var form = layui.form,
+                        layer = layui.layer;
+                    var laydate = layui.laydate;
+                    laydate.render({
+                        elem: '#intime'
+                    });
+                    laydate.render({
+                        elem: '#outtime'
+                    });
+                    form.render();
+
+                    //自定义验证规则
+                    form.verify({
+                        nikename: function(value) {
+                            if (value.length < 2) {
+                                return '昵称至少得2个字符';
+                            }
+                        },
+                        pass: [/^$|(.+){6,12}$/, '密码必须6到12位'],
+                        repass: function(value) {
+                            if ($('#L_pass').val() != $('#L_repass').val()) {
+                                return '两次密码不一致';
+                            }
+                        },
+                        count: function (value) {
+                            if (typeof(value)!="number") {
+                                return '必须是数字'
+                            }
+                            if (value<=0) {
+                                return '数量必须大于0'
+                            }
+                        }
+                    });
+
+                    //监听提交
+                });
+            function getDate(strDate) {
+                var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,
+                    function (a) { return parseInt(a, 10) - 1; }).match(/\d+/g) + ')');
+                return date;
+            }
+
+            function calc(data) {
+                if ($("#count").val()<1) {
+                    $("#count").val(1);
+                }
+                $("#payment").val($("#count").val()*$("#price").text());
+            }
+
+        </script>
+        <script>var _hmt = _hmt || []; (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();</script>
+    </body>
+
+</html>

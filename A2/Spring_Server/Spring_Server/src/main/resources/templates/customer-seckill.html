@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/lib/layui/layui.js"></script>
+    <title>seckill</title>
+</head>
+<body>
+    <div th:text="${num}"></div>
+    <button value="秒杀" onclick="seckill()">秒杀</button>
+</body>
+<script>
+    function seckill() {
+        $.post("customerbuy", function (res) {
+            if (res == "success"){
+                alert("成功");
+                window.location.reload();
+            } else{
+                alert("失败");
+            }
+        })
+    }
+</script>
+
+</html>

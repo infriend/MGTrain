@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="train.a2.dao.BooktableDao">
+    <select id="getBookNumByDate" resultType="Integer">
+        select SUM(count) from booktable
+        where hotelname=#{hotelname} and suitetype=#{suitetype} and intime &lt;= #{date} and outtime &gt; #{date} for update
+    </select>
+    <insert id="insertBooktable" parameterType="booktable">
+        insert into booktable(username, hotelname, booknum, intime, outtime, suitetype, peoplenum, child, payment, count)
+        values (#{username}, #{hotelname}, #{booknum}, #{intime}, #{outtime}, #{suitetype}, #{peoplenum}, #{child}, #{payment}, #{count})
+    </insert>
+    <select id="getBooktableByName" resultType="booktable">
+        select username, hotelname, booknum, intime, outtime, suitetype, peoplenum, child, payment, count from booktable where username=#{username}
+    </select>
+
+</mapper>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Concurrent</title>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<button onclick="f1()">Status</button>
+<button onclick="f2()">Stop</button>
+<div id="result"></div>
+</body>
+<script>
+    $(function () {
+        $.post("/async/startJob", function (res) {
+            $("#result").text(res);
+        })
+    })
+    function f1() {
+        $.post("/async/jobStatus", function (res, status, xhr) {
+            $("#result").text(res);
+        })
+    }
+    function f2() {
+        $.post("/async/stopJob", function (res) {
+            $("#result").text(res);
+        })
+    }
+</script>
+</html>
