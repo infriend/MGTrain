@@ -11,11 +11,13 @@ import com.magus.a4.utils.UUIDGeneratorUtil;
 import com.magus.a4.vo.SimpleAuction;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class BidderServiceImpl implements BidderService {
     @Autowired
     private EnrollmentMapper enrollmentMapper;

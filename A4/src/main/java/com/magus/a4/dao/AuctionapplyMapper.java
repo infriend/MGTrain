@@ -2,8 +2,9 @@ package com.magus.a4.dao;
 
 import com.magus.a4.pojo.Auctionapply;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
-@Mapper
+@Repository
 public interface AuctionapplyMapper {
     int deleteByPrimaryKey(String applyid);
 
