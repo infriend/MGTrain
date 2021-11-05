@@ -217,7 +217,15 @@
   </select>
 
   <select id="getAuctionsByUser" resultType="com.magus.a4.vo.SimpleAuction">
-
+    select auctionid, lotname, startingprice, starttime, endtime
+    from auction
+    where auctionid in (select auctionid from enrollment where username=#{username})
 
   </select>
+
+  <select id="getAuctionsByStatus" resultType="com.magus.a4.vo.SimpleAuction">
+    select auctionid, lotname, startingprice, starttime, endtime
+    from auction
+    where status=#{status}
+    </select>
 </mapper>

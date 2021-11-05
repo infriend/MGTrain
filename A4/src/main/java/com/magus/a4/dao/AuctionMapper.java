@@ -25,4 +25,6 @@ public interface AuctionMapper {
     List<Auction> getAuctionsGoingOn();
 
     List<SimpleAuction> getAuctionsByUser(String username);
+
+    List<SimpleAuction> getAuctionsByStatus(short status);
 }

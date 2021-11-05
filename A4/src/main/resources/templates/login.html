@@ -46,7 +46,7 @@
             <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
             <hr class="hr20" >
         </form>
-        <a href="/regpage">用户注册</a>
+        <a href="/registerpage">注册</a>
     </div>
 
     <script>
@@ -83,7 +83,7 @@
                         data.field.role="user"
                         $.post("/clogin", data.field, function (res) {
                             if (res["msg"] == "yes"){
-                                window.location.href=window.location.href+"customer/customerhome";
+                                window.location.href=window.location.href+"bidder/home";
                             } else if (res["msg"] == undefined){
                                 layer.msg("网络连接失败");
                             } else{

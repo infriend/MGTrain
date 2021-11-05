@@ -1,10 +1,7 @@
 package com.magus.a4.service;
 
 import com.magus.a4.pojo.Auction;
-import com.magus.a4.vo.Loginvo;
-import com.magus.a4.vo.RegisterVo;
-import com.magus.a4.vo.SimpleBidingPrice;
-import com.magus.a4.vo.Useraccount;
+import com.magus.a4.vo.*;
 
 import java.util.List;
 
@@ -13,7 +10,9 @@ public interface CommonService {
 
     List<SimpleBidingPrice> getBidingList(String auctionid);
 
-    int register(RegisterVo registerVo);
+    int register(RegisterVo registerVo) throws Exception;
 
     Auction auctionDetails(String auctionid);
+
+    List<SimpleAuction> getActiveAuctions();
 }

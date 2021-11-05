@@ -2,6 +2,7 @@ package com.magus.a4.dao;
 
 import com.magus.a4.pojo.User;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public interface UserMapper {
     int deleteByPrimaryKey(String username);
 
-    int insert(User record);
+    int insert(User record) throws Exception;
 
     int insertSelective(User record);
 

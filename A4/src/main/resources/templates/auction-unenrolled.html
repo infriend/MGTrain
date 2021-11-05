@@ -68,41 +68,15 @@
                 </fieldset>
                 <form class="layui-form" id="hotelform">
                     <div class="layui-form-item">
-                        <label for="L_price" class="layui-form-label"></label>
-                        <input type="text" id="L_price" name="price" required="" autocomplete="off" class="layui-input">
                         <label for="L_repass" class="layui-form-label"></label>
-                        <button class="layui-btn" lay-filter="enroll" lay-submit="">报价</button></div>
+                        <button class="layui-btn" lay-filter="enroll" lay-submit="">报名</button></div>
                 </form>
             </div>
-            <tr >报价列表</tr>
-            <div id="bidinglist">
-
+            <div>
+                <tr id="bidinglist">报价列表</tr>
 
             </div>
         </div>
-        <script th:inline="javascript">
-            var auctionid = [[${a.auctionid}]];
-        </script>
-        <script>
-            function fresh(){
-                $("#bidinglist").empty()
-                $.post("/bidinglist", auctionid, function (res) {
-                    if (res["success"]==true){
-                        for (var i = 0; i < res["data"].length; i++){
-                            $("#bidinglist").prepend(
-                                "<tr>"+ res["data"][i].bidingno+"  "+ res["data"][i].price+"  "+ res["data"][i].bidingtime+"</tr>"
-                            )
-                        }
-                    } else{
-                        layer.msg("添加失败");
-                    }
-                })
-            }
-            setInterval("fresh()", 1000)
-
-        </script>
-
-
         <script>layui.use(['form', 'layer'],
             function() {
                 $ = layui.jquery;

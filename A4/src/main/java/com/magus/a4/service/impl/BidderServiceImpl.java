@@ -107,7 +107,6 @@ public class BidderServiceImpl implements BidderService {
     @Override
     public List<SimpleAuction> getMyAuctions(String username) {
         //查所有该用户名的Enrollment，根据auctionid查找
-        
-        return null;
+        return auctionMapper.getAuctionsByUser(username);
     }
 }

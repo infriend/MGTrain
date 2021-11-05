@@ -3,12 +3,16 @@ package com.magus.a4.controller;
 import com.magus.a4.pojo.Result;
 import com.magus.a4.service.BidderService;
 import com.magus.a4.utils.ResultUtil;
+import com.magus.a4.vo.SimpleAuction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/bidder")
@@ -29,19 +33,53 @@ public class BidderController {
     }
 
     @RequestMapping(value = "/bidding", method = RequestMethod.POST)
-    public Result bidding(String auctionid){
-
-        return null;
+    public Result bidding(String auctionid, BigDecimal price, HttpServletRequest request){
+        String username = (String) request.getSession().getAttribute("username");
+        int s = bidderService.bidding(auctionid, username, price);
+        if (s != 0) {
+            return ResultUtil.success();
+        }else {
+            return ResultUtil.error("报价失败");
+        }
     }
 
     @RequestMapping(value = "/confirmhammer", method = RequestMethod.POST)
-    public Result confirmHammer(String auctionid){
-        return null;
+    public Result confirmHammer(String auctionid, short status, HttpServletRequest request){
+        String username = (String) request.getSession().getAttribute("username");
+        int s = 0;
+        if (status == 3 || status == 4) {
+            s = bidderService.confirmHammer(auctionid, username, status);
+        }
+        if (s != 0) {
+            return ResultUtil.success();
+        }else {
+            return ResultUtil.error("确认失败");
+        }
     }
 
-    @RequestMapping(value = "/myauctions", method = RequestMethod.POST)
-    public Result getMyAuctions(String auctionid){
-        return null;
+    @RequestMapping(value = "/myauctions")
+    public ModelAndView getMyAuctions(HttpServletRequest request, ModelAndView mv){
+        String username = (String) request.getSession().getAttribute("username");
+        List<SimpleAuction> auctionList = bidderService.getMyAuctions(username);
+        mv.addObject("ats", auctionList);
+        mv.setViewName("UserAuctionList");
+        return mv;
+    }
+
+    @RequestMapping(value = "/home")
+    public ModelAndView homePage(ModelAndView mv){
+        mv.setViewName("user_index");
+        return mv;
+    }
+
+    @RequestMapping(value = "/auctionlist")
+    public String auctionList(){
+        return "redirect:/auctionlist";
+    }
+
+    @RequestMapping(value = "/bidinglist")
+    public String bidingList(){
+        return "redirect:/bidinglist";
     }
 
 

@@ -10,8 +10,10 @@ import com.magus.a4.pojo.Userinfo;
 import com.magus.a4.service.CommonService;
 import com.magus.a4.vo.Loginvo;
 import com.magus.a4.vo.RegisterVo;
+import com.magus.a4.vo.SimpleAuction;
 import com.magus.a4.vo.SimpleBidingPrice;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,7 +49,7 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public int register(RegisterVo registerVo) {
+    public int register(RegisterVo registerVo) throws Exception {
         User user = new User();
         user.setUsername(registerVo.getUsername());
         user.setPassword(registerVo.getPassword());
@@ -73,5 +75,10 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public Auction auctionDetails(String auctionid) {
         return auctionMapper.selectByPrimaryKey(auctionid);
+    }
+
+    @Override
+    public List<SimpleAuction> getActiveAuctions() {
+        return auctionMapper.getAuctionsByStatus((short) 1);
     }
 }

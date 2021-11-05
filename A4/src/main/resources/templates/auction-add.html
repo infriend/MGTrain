@@ -137,7 +137,7 @@
                             data.field.auctioneer="dddd"
                             data.field.winner="null"
                             $.post("addauction", data.field, function (res) {
-                                if (res["success"]=='true'){
+                                if (res["success"]==true){
                                     layer.msg("添加成功");
                                     window.location.reload();
                                 } else{
