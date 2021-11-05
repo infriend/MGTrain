@@ -2,11 +2,11 @@ package com.magus.a4.dao;
 
 import com.magus.a4.pojo.Auction;
 import com.magus.a4.vo.SimpleAuction;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Mapper
+@Repository
 public interface AuctionMapper {
     int deleteByPrimaryKey(String auctionid);
 

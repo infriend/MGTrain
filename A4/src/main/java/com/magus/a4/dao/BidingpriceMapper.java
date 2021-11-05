@@ -1,9 +1,12 @@
 package com.magus.a4.dao;
 
 import com.magus.a4.pojo.Bidingprice;
-import com.magus.a4.vo.SimpleBidingPrice;import org.apache.ibatis.annotations.Mapper;import java.util.List;
+import com.magus.a4.vo.SimpleBidingPrice;
+import org.springframework.stereotype.Repository;
 
-@Mapper
+import java.util.List;
+
+@Repository
 public interface BidingpriceMapper {
     int deleteByPrimaryKey(String bidinguid);
 

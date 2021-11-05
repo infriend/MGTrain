@@ -1,10 +1,8 @@
 package com.magus.a4.service.impl;
 
 import com.magus.a4.dao.AuctionMapper;
-import com.magus.a4.dao.AuctionapplyMapper;
 import com.magus.a4.dao.BidingpriceMapper;
 import com.magus.a4.pojo.Auction;
-import com.magus.a4.pojo.Auctionapply;
 import com.magus.a4.pojo.Bidingprice;
 import com.magus.a4.service.AuctioneerService;
 import com.magus.a4.utils.UUIDGeneratorUtil;
@@ -21,9 +19,6 @@ public class AuctioneerServiceImplement implements AuctioneerService {
     private AuctionMapper auctionMapper;
 
     @Autowired
-    private AuctionapplyMapper auctionapplyMapper;
-
-    @Autowired
     private BidingpriceMapper bidingpriceMapper;
 
     @Override
@@ -32,11 +27,6 @@ public class AuctioneerServiceImplement implements AuctioneerService {
         String uid = uuidGeneratorUtil.getUUID();
         auction.setAuctionid(uid);
         return auctionMapper.insert(auction);
-    }
-
-    @Override
-    public int refuseAuctionApply(String applyid) {
-        return auctionapplyMapper.refuseByPrimarykey(applyid);
     }
 
     @Override

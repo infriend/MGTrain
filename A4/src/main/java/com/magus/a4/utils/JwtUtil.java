@@ -22,8 +22,7 @@ public class JwtUtil {
     /**
      * JWT 自定义密钥 在配置文件进行配置
      */
-    @Value("${jwt.secret}")
-    private String secretKey;
+    private String secretKey = "dddfasfhu";;
 
     /**
      * JWT 过期时间值 3600/小时 这里设置为24个小时

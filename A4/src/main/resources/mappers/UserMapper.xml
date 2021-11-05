@@ -88,4 +88,22 @@
       `role` = #{role,jdbcType=VARCHAR}
     where username = #{username,jdbcType=VARCHAR}
   </update>
+
+  <update id="updateStatusByUsername">
+    update user
+    set status=#{status}
+    where username=#{username}
+  </update>
+
+  <update id="resetPasswdByUsername">
+    update user
+    set password=#{passwd}
+    where username=#{username}
+  </update>
+
+  <select id="getActiveUserList" resultMap="BaseResultMap">
+    select *
+    from user
+    where status=2;
+  </select>
 </mapper>

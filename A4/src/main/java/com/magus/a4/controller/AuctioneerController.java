@@ -34,18 +34,6 @@ public class AuctioneerController {
         }
     }
 
-    @RequestMapping(value = "/refuseapply", method = RequestMethod.POST)
-    @RequiresRoles("auctioneer")
-    public Result refuseAuctionApply(String applyid){
-        int s = auctioneerService.refuseAuctionApply(applyid);
-        if (s != 0) {
-            return ResultUtil.success();
-        }else {
-            return ResultUtil.error("拒绝失败");
-        }
-
-    }
-
     @RequestMapping(value = "/modifyauction", method = RequestMethod.POST)
     @RequiresRoles("auctioneer")
     public Result modifyAuction(@RequestBody Auction auction){

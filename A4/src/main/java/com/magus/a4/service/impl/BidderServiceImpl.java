@@ -11,11 +11,13 @@ import com.magus.a4.utils.UUIDGeneratorUtil;
 import com.magus.a4.vo.SimpleAuction;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class BidderServiceImpl implements BidderService {
     @Autowired
     private EnrollmentMapper enrollmentMapper;
@@ -46,7 +48,7 @@ public class BidderServiceImpl implements BidderService {
 
     @Override
     public int bidding(String auctionid, String username, BigDecimal price) {
-        //先查出价列表最高的，再检查当前出价是否更高，是否是自增倍数，最后再提交
+        //先查出价列表最高的，再检查当前出价是否更高，是否是自增倍数，再检查项目截止时间，如果截止时间小于5min，自动延长5min，最后再提交
         Bidingprice bidingprice = bidingpriceMapper.getMaxBidingPrice(auctionid);
         Auction auction = auctionMapper.selectByPrimaryKey(auctionid);
         UUIDGeneratorUtil uuidGeneratorUtil = new UUIDGeneratorUtil();
@@ -62,7 +64,24 @@ public class BidderServiceImpl implements BidderService {
             newbiding.setBidinguid(uid);
             String bidingno = RandomStringUtils.randomAlphanumeric(10);
             newbiding.setBidingno(bidingno);
-            return bidingpriceMapper.insert(newbiding);
+
+            long nd = 1000 * 24 * 60 * 60;
+            long nh = 1000 * 60 *60;
+            long nm = 1000 * 60;
+            Date endtime = auction.getEndtime();
+            Date nowtime = new Date();
+            long diff = endtime.getTime() - nowtime.getTime();
+            if (diff > 0){ //时间没有超过截止时间
+                long minute = diff/nm;
+                if (minute < 5){ //时间小于5分钟
+                    nowtime = new Date(nowtime.getTime()+300000);
+                    auction.setEndtime(nowtime);
+                    auctionMapper.updateByPrimaryKey(auction);
+                }
+                return bidingpriceMapper.insert(newbiding);
+            } else {
+                return 0;
+            }
         } else {
             return 0;
         }
