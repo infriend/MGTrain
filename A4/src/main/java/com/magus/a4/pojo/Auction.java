@@ -3,6 +3,7 @@ package com.magus.a4.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 public class Auction {
@@ -28,9 +29,9 @@ public class Auction {
 
     private String auctioneer;
 
-    private Date starttime;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") private Date starttime;
 
-    private Date endtime;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") private Date endtime;
 
     private String winner;
 }

@@ -6,5 +6,4 @@ import lombok.Data;
 public class Useraccount {
     private String username;
     private String role;
-    private String token;
 }

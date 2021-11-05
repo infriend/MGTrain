@@ -3,6 +3,7 @@ package com.magus.a4.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 public class Bidingprice {
@@ -16,5 +17,5 @@ public class Bidingprice {
 
     private BigDecimal price;
 
-    private Date bidingtime;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") private Date bidingtime;
 }

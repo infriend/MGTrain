@@ -6,7 +6,6 @@ import lombok.Data;
 public class RegisterVo {
     private String username;
     private String password;
-    private short status;
     private String role;
     private short sex;
     private String phone;

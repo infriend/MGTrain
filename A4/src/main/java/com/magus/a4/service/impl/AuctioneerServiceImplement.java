@@ -26,6 +26,9 @@ public class AuctioneerServiceImplement implements AuctioneerService {
         UUIDGeneratorUtil uuidGeneratorUtil = new UUIDGeneratorUtil();
         String uid = uuidGeneratorUtil.getUUID();
         auction.setAuctionid(uid);
+        if (auction.getEndtime().before(auction.getStarttime())){
+            return 0; //不能让endtime小于starttime，自动检测服务会报错
+        }
         return auctionMapper.insert(auction);
     }
 
@@ -42,7 +45,7 @@ public class AuctioneerServiceImplement implements AuctioneerService {
     public int suspendAuction(String auctionid, String username) {
         Auction temp = auctionMapper.selectByPrimaryKey(auctionid);
         if (temp.getAuctioneer().equals(username)){
-            temp.setStatus((short) 0);//0暂停，1正常，2结束但未支付，3结束已支付，4反悔
+            temp.setStatus((short) 0);//0暂停，1正常，2结束但未支付，3结束已支付，4反悔，5取消
             return auctionMapper.updateByPrimaryKey(temp);
         } else {
             return 0;

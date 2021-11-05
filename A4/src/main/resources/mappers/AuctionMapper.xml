@@ -208,7 +208,7 @@
 
   <select id="getAuctionsByAuctioneer" resultType="com.magus.a4.vo.SimpleAuction">
     select auctionid, lotname, startingprice, starttime, endtime from auction
-    where auctionid = #{auctioneer}
+    where auctioneer = #{auctioneer}
     </select>
 
   <select id="getAuctionsGoingOn" resultType="com.magus.a4.pojo.Auction">

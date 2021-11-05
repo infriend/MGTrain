@@ -4,7 +4,6 @@ import com.magus.a4.dao.AuctionMapper;
 import com.magus.a4.dao.BidingpriceMapper;
 import com.magus.a4.pojo.Auction;
 import com.magus.a4.pojo.Bidingprice;
-import com.magus.a4.vo.SimpleAuction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -27,7 +26,12 @@ public class ScheduleService {
             if (a.getEndtime().before(new Date())){
                 Bidingprice b = bidingpriceMapper.getMaxBidingPrice(a.getAuctionid());
                 a.setStatus((short) 2);
-                a.setWinner(b.getUsername());
+                if (b!= null){
+                    a.setWinner(b.getUsername());
+                } else {
+                    a.setStatus((short) 3);
+                    a.setWinner("流拍");
+                }
             }
         }
     }
