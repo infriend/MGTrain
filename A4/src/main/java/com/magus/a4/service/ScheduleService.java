@@ -30,8 +30,9 @@ public class ScheduleService {
                     a.setWinner(b.getUsername());
                 } else {
                     a.setStatus((short) 3);
-                    a.setWinner("流拍");
+                    a.setWinner("pass");
                 }
+                auctionMapper.updateByPrimaryKey(a);
             }
         }
     }

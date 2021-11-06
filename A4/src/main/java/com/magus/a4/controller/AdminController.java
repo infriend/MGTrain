@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -21,7 +23,8 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete")
+    @ResponseBody
     public Result deleteAccount(String username){
         int s = adminService.deleteAccount(username);
         if (s != 0) {
@@ -31,11 +34,13 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = "/resetpw", method = RequestMethod.POST)
-    public String resetPasswd(String username){
+    @RequestMapping(value = "/resetpw")
+    public ModelAndView resetPasswd(String username, ModelAndView mv){
         String passwd = RandomStringUtils.randomAlphanumeric(6);
-        adminService.resetPasswd(username, passwd);
-        return passwd;
+        int s = adminService.resetPasswd(username, passwd);
+        mv.addObject("passwd", passwd);
+        mv.setViewName("randpasswd");
+        return mv;
     }
 
     @RequestMapping(value = "/check", method = RequestMethod.POST)

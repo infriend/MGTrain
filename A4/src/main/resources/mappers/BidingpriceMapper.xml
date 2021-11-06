@@ -120,7 +120,7 @@
 
   <select id="getMaxBidingPrice" resultMap="BaseResultMap">
     select * from bidingprice
-    where auctionid = #{auctionid} and price = (select Max(price) from bidingprice)
+    where auctionid = #{auctionid} and price = (select Max(price) from bidingprice where auctionid=#{auctionid})
     limit 1;
   </select>
 </mapper>

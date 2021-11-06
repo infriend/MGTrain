@@ -90,6 +90,12 @@ public class LoginController {
                 mv.setViewName("auction-unenrolled");
             }
         }
+        if (auction.getStatus()==0){
+            mv.setViewName("auction-stop");
+        }
+        if (auction.getStatus()==4){
+            mv.setViewName("auction-over");
+        }
         mv.addObject("a", auction);
         return mv;
     }

@@ -47,6 +47,7 @@ public class BidderController {
     }
 
     @RequestMapping(value = "/confirmhammer", method = RequestMethod.POST)
+    @ResponseBody
     public Result confirmHammer(String auctionid, short status, HttpServletRequest request){
         String username = (String) request.getSession().getAttribute("username");
         int s = 0;

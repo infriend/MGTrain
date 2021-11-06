@@ -133,11 +133,11 @@
                             data.field.auctionid = auctionid
                             data.field.status = 3
                             $.post("/bidder/confirmhammer", data.field, function (res) {
-                                if (res["success"]=='true'){
-                                    layer.msg("报名成功");
+                                if (res["success"]==true){
+                                    layer.msg("成功");
                                     window.location.reload();
                                 } else{
-                                    layer.msg("报名失败");
+                                    layer.msg("失败");
                                 }
                             })
                                 ,

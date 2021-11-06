@@ -50,10 +50,10 @@
                                         <td th:text="${a.role}"></td>
                                         <td th:text="${a.status}"></td>
                                         <td class="td-manage">
-                                             <a th:attr="onclick=|xadmin.open('批准','check?username='+'${a.username}'+'&decision=2')|" href="javascript:;"  title="批准">
+                                             <a th:attr="onclick=|member_approve(this,'${a.username}')|" href="javascript:;"  title="批准">
                                                 <i class="layui-icon">&#xe601;</i>
                                             </a>
-                                            <a th:attr="onclick=|xadmin.open('拒绝','check?username='+'${a.username}'+'&decision=0')|" href="javascript:;"  title="拒绝">
+                                            <a th:attr="onclick=|member_finish(this,'${a.username}')|" href="javascript:;"  title="拒绝">
                                                 <i class="layui-icon">&#xe601;</i>
                                             </a>
                                         </td>
@@ -120,17 +120,34 @@
           });
       }
 
-      /*用户-删除*/
-      function member_del(obj,id){
-          layer.confirm('确认要删除吗？',function(index){
-              //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
+      function member_approve(obj,username) {
+          data = {"username": username}
+          data.decision = 2
+          layer.confirm('确认要批准吗？', function (index) {
+              $.post("check", data, function (res) {
+                  if (res["success"] == true) {
+                      layer.msg('已批准!', {icon: 1, time: 1000});
+                  } else {
+                      layer.msg("批准失败，检查网络！");
+                  }
+              })
           });
       }
 
+      function member_refuse(obj,username) {
+          data = {"username": username}
+          data.decision = 0
+          layer.confirm('确认要暂停吗？', function (index) {
+              $.post("check", data, function (res) {
+                  if (res["success"] == true) {
+                      layer.msg('已拒绝!', {icon: 1, time: 1000});
+                  } else {
+                      layer.msg("拒绝失败，检查网络！");
+                  }
+              })
 
-
+          });
+      }
       function delAll (argument) {
         var ids = [];
 

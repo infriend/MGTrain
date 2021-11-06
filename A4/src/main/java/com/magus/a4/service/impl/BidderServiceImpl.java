@@ -93,7 +93,7 @@ public class BidderServiceImpl implements BidderService {
     public int confirmHammer(String auctionid, String username, int status) {
         //依然不写支付接口，直接确认已经付了钱或者反悔
         Auction auction = auctionMapper.selectByPrimaryKey(auctionid);
-        if (status == 2){
+        if (auction.getStatus() == 2){
             if (auction.getWinner().equals(username)){
                 auction.setStatus((short) 3);
                 return auctionMapper.updateByPrimaryKey(auction);

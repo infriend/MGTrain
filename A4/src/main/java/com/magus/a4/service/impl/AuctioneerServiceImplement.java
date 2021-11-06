@@ -35,7 +35,7 @@ public class AuctioneerServiceImplement implements AuctioneerService {
     @Override
     public int modifyAuction(Auction auction) {
         Auction oldauction = auctionMapper.selectByPrimaryKey(auction.getAuctionid());
-        if (oldauction.getStarttime().before(new Date())){
+        if (oldauction.getStarttime().after(new Date())){
             return auctionMapper.updateByPrimaryKey(auction);
         } else return 0;
 
