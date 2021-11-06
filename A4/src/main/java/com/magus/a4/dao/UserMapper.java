@@ -28,4 +28,6 @@ public interface UserMapper {
                               @Param("passwd") String passwd);
 
     List<User> getActiveUserList();
+
+    List<User> getUncheckedList();
 }

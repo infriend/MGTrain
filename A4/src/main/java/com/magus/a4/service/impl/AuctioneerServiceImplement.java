@@ -6,7 +6,7 @@ import com.magus.a4.pojo.Auction;
 import com.magus.a4.pojo.Bidingprice;
 import com.magus.a4.service.AuctioneerService;
 import com.magus.a4.utils.UUIDGeneratorUtil;
-import com.magus.a4.vo.SimpleAuction;
+import com.magus.a4.vo.AuctioneerAuction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -77,7 +77,7 @@ public class AuctioneerServiceImplement implements AuctioneerService {
     }
 
     @Override
-    public List<SimpleAuction> myAuctions(String username) {
+    public List<AuctioneerAuction> myAuctions(String username) {
         return auctionMapper.getAuctionsByAuctioneer(username);
     }
 }

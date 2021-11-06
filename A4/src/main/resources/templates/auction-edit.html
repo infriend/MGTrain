@@ -24,33 +24,33 @@
                         <label for="L_name" class="layui-form-label">
                             <span class="x-red">*</span>拍卖物名称</label>
                         <div class="layui-input-inline">
-                            <input type="text" id="L_name" name="lotname" required="" autocomplete="off" class="layui-input" th:text="${a.lotname}"></div>
+                            <input type="text" id="L_name" name="lotname" required="" autocomplete="off" class="layui-input" th:value="${a.lotname}"></div>
                     </div>
                     <div class="layui-form-item">
                         <label for="L_startingprice" class="layui-form-label">
                             <span class="x-red">*</span>起价</label>
                         <div class="layui-input-inline">
-                            <input type="number" id="L_startingprice" name="startingprice" required="" autocomplete="off" class="layui-input" th:text="${a.startingprice}"></div>
+                            <input type="number" id="L_startingprice" name="startingprice" required="" autocomplete="off" class="layui-input" th:value="${a.startingprice}"></div>
                     </div>
                     <div class="layui-form-item">
                         <label for="L_reserve" class="layui-form-label">
                             <span class="x-red">*</span>保留价</label>
                         <div class="layui-input-inline">
-                            <input type="number" id="L_reserve" name="reserveprice" required="" autocomplete="off" class="layui-input" th:text="${a.reserveprice}"></div>
+                            <input type="number" id="L_reserve" name="reserveprice" required="" autocomplete="off" class="layui-input" th:value="${a.reserveprice}"></div>
                     </div>
 
                     <div class="layui-form-item">
                         <label for="L_depo" class="layui-form-label">
                             <span class="x-red">*</span>保证金</label>
                         <div class="layui-input-inline">
-                            <input type="number" id="L_depo" name="deposit" required="" autocomplete="off" class="layui-input" th:text="${a.deposit}"></div>
+                            <input type="number" id="L_depo" name="deposit" required="" autocomplete="off" class="layui-input" th:value="${a.deposit}"></div>
                     </div>
 
                     <div class="layui-form-item">
                         <label for="L_depo" class="layui-form-label">
                             <span class="x-red">*</span>竞价幅度</label>
                         <div class="layui-input-inline">
-                            <input type="number" id="L_depo" name="increment" required="" autocomplete="off" class="layui-input" th:text="${a.increment}"></div>
+                            <input type="number" id="L_depo" name="increment" required="" autocomplete="off" class="layui-input" th:value="${a.increment}"></div>
                     </div>
 
 
@@ -79,14 +79,16 @@
                         <label for="L_starttime" class="layui-form-label">
                             <span class="x-red">*</span>开始时间</label>
                         <div class="layui-input-inline">
-                            <input type="datetime-local" id="L_starttime" name="starttime" required="" autocomplete="off" class="layui-input" th:text="${a.starttime}"></div>
+                            <input type="datetime-local" id="L_starttime" name="starttime" required="" autocomplete="off" class="layui-input"
+                                   th:value="${#dates.format(a.starttime,'yyyy-MM-dd')}+'T'+${#dates.format(a.starttime,'HH:mm:ss')}"></div>
                     </div>
 
                     <div class="layui-form-item">
                             <label for="L_endtime" class="layui-form-label">
                                 <span class="x-red">*</span>结束时间</label>
                             <div class="layui-input-inline">
-                                <input type="datetime-local" id="L_endtime" name="endtime" required="" autocomplete="off" class="layui-input" th:text="${a.endtime}"></div>
+                                <input type="datetime-local" id="L_endtime" name="endtime" required="" autocomplete="off" class="layui-input"
+                                       th:value="${#dates.format(a.endtime,'yyyy-MM-dd')}+'T'+${#dates.format(a.endtime,'HH:mm:ss')}"></div>
                         </div>
 
 
@@ -98,6 +100,10 @@
                 </form>
             </div>
         </div>
+        <script th:inline="javascript">
+            var auctionid = [[${a.auctionid}]];
+        </script>
+
         <script>
             layui.use(['form', 'layer', 'laydate'],
                 function() {
@@ -136,12 +142,12 @@
                             data.field.starttime = temptime[0] + ' ' + temptime[1] + ':00'
                             temptime = data.field.endtime.split("T")
                             data.field.endtime = temptime[0] + ' ' + temptime[1] + ':00'
-                            data.field.auctionid="ddd"
+                            data.field.auctionid=auctionid
                             data.field.status=1
                             data.field.auctioneer="dddd"
                             data.field.winner="null"
-                            $.post("addauction", data.field, function (res) {
-                                if (res["success"]=='true'){
+                            $.post("modifyauction", data.field, function (res) {
+                                if (res["success"]==true){
                                     layer.msg("添加成功");
                                     window.location.reload();
                                 } else{

@@ -5,6 +5,7 @@ import com.magus.a4.pojo.Result;
 import com.magus.a4.service.AuctioneerService;
 import com.magus.a4.service.CommonService;
 import com.magus.a4.utils.ResultUtil;
+import com.magus.a4.vo.AuctioneerAuction;
 import com.magus.a4.vo.SimpleAuction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,7 @@ public class AuctioneerController {
     @Autowired
     private CommonService commonService;
 
-    @RequestMapping(value = "/addauction", method = RequestMethod.POST)
+    @RequestMapping(value = "/addauction")
     @ResponseBody
     public Result addAuction(Auction auction, HttpServletRequest request){
         String username = (String) request.getSession().getAttribute("username");
@@ -39,8 +40,11 @@ public class AuctioneerController {
         }
     }
 
-    @RequestMapping(value = "/modifyauction", method = RequestMethod.POST)
-    public Result modifyAuction(@RequestBody Auction auction){
+    @RequestMapping(value = "/modifyauction")
+    @ResponseBody
+    public Result modifyAuction(Auction auction, HttpServletRequest request){
+        String username = (String) request.getSession().getAttribute("username");
+        auction.setAuctioneer(username);
         int s = auctioneerService.modifyAuction(auction);
         if (s != 0) {
             return ResultUtil.success();
@@ -49,7 +53,8 @@ public class AuctioneerController {
         }
     }
 
-    @RequestMapping(value = "/suspendauction", method = RequestMethod.POST)
+    @RequestMapping(value = "/suspendauction")
+    @ResponseBody
     public Result suspendAuction(String auctionid, HttpServletRequest request){
         //获得当前用户名，查找拍卖，对应用户名，即可修改状态，否则error
         String username = (String) request.getSession().getAttribute("username");
@@ -61,7 +66,8 @@ public class AuctioneerController {
         }
     }
 
-    @RequestMapping(value = "/restartauction", method = RequestMethod.POST)
+    @RequestMapping(value = "/restartauction")
+    @ResponseBody
     public Result restartAuction(String auctionid, HttpServletRequest request){
         String username = (String) request.getSession().getAttribute("username");
         int s = auctioneerService.restartAuction(auctionid, username);
@@ -72,7 +78,8 @@ public class AuctioneerController {
         }
     }
 
-    @RequestMapping(value = "/finishauction", method = RequestMethod.POST)
+    @RequestMapping(value = "/finishauction")
+    @ResponseBody
     public Result finishAuction(String auctionid, HttpServletRequest request){
         String username = (String) request.getSession().getAttribute("username");
         int s = auctioneerService.finishAuction(auctionid, username);
@@ -86,7 +93,7 @@ public class AuctioneerController {
     @RequestMapping(value = "/myauctions")
     public ModelAndView myAuctions(HttpServletRequest request, ModelAndView mv){
         String username = (String) request.getSession().getAttribute("username");
-        List<SimpleAuction> simpleAuctionList = auctioneerService.myAuctions(username);
+        List<AuctioneerAuction> simpleAuctionList = auctioneerService.myAuctions(username);
         mv.addObject("auctions", simpleAuctionList);
         mv.setViewName("AuctioneerAuctionList");
         return mv;
@@ -106,7 +113,7 @@ public class AuctioneerController {
 
     @RequestMapping(value = "/auctiondetails")
     public String auctionDetails(String auctionid){
-        return "redirect:/auctiondetails";
+        return "redirect:/auctiondetails?auctionid="+auctionid;
     }
 
     @RequestMapping(value = "/editAuctionPage")
@@ -116,5 +123,7 @@ public class AuctioneerController {
         mv.setViewName("auction-edit");
         return mv;
     }
+
+
 
 }

@@ -106,4 +106,10 @@
     from user
     where status=2;
   </select>
+
+  <select id="getUncheckedList" resultMap="BaseResultMap">
+    select *
+    from user
+    where status=1;
+    </select>
 </mapper>

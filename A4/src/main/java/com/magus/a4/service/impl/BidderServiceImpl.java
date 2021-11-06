@@ -52,9 +52,11 @@ public class BidderServiceImpl implements BidderService {
         Bidingprice bidingprice = bidingpriceMapper.getMaxBidingPrice(auctionid);
         Auction auction = auctionMapper.selectByPrimaryKey(auctionid);
         UUIDGeneratorUtil uuidGeneratorUtil = new UUIDGeneratorUtil();
-        BigDecimal mod = price.divideAndRemainder(auction.getIncrement())[1];
+        BigDecimal[] mod = price.divideAndRemainder(auction.getIncrement());
 
-        if (price.compareTo(bidingprice.getPrice())==1 && mod.equals(0)){
+        if ((bidingprice==null||price.compareTo(bidingprice.getPrice())==1)
+                && mod[1].compareTo(BigDecimal.valueOf(0))==0 && auction.getStatus()==1
+        && price.compareTo(auction.getStartingprice())==1){
             Bidingprice newbiding = new Bidingprice();
             newbiding.setAuctionid(auctionid);
             newbiding.setUsername(username);
@@ -91,7 +93,7 @@ public class BidderServiceImpl implements BidderService {
     public int confirmHammer(String auctionid, String username, int status) {
         //依然不写支付接口，直接确认已经付了钱或者反悔
         Auction auction = auctionMapper.selectByPrimaryKey(auctionid);
-        if (status == 1){
+        if (status == 2){
             if (auction.getWinner().equals(username)){
                 auction.setStatus((short) 3);
                 return auctionMapper.updateByPrimaryKey(auction);

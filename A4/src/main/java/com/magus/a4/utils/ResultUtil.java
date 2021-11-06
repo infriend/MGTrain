@@ -1,8 +1,11 @@
 package com.magus.a4.utils;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.magus.a4.pojo.Result;
 
-public class ResultUtil {
+import java.io.Serializable;
+
+public class ResultUtil implements Serializable {
     public static <T> Result<T> success(){
         Result result = new Result();
         result.setSuccess(true);
@@ -12,6 +15,7 @@ public class ResultUtil {
     public static <T> Result<T> success(T data){
         Result result = new Result();
         result.setSuccess(true);
+        result.setMessage("");
         result.setData(data);
         return result;
     }

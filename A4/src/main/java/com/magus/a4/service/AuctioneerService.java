@@ -1,7 +1,7 @@
 package com.magus.a4.service;
 
 import com.magus.a4.pojo.Auction;
-import com.magus.a4.vo.SimpleAuction;
+import com.magus.a4.vo.AuctioneerAuction;
 
 import java.util.List;
 
@@ -16,6 +16,6 @@ public interface AuctioneerService {
 
     int finishAuction(String auctionid,String username);
 
-    List<SimpleAuction> myAuctions(String username);
+    List<AuctioneerAuction> myAuctions(String username);
 
 }

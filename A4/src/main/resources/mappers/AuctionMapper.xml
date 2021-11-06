@@ -206,8 +206,8 @@
     where auctionid = #{auctionid,jdbcType=VARCHAR}
   </update>
 
-  <select id="getAuctionsByAuctioneer" resultType="com.magus.a4.vo.SimpleAuction">
-    select auctionid, lotname, startingprice, starttime, endtime from auction
+  <select id="getAuctionsByAuctioneer" resultType="com.magus.a4.vo.AuctioneerAuction">
+    select auctionid, lotname, startingprice, starttime, endtime, status from auction
     where auctioneer = #{auctioneer}
     </select>
 

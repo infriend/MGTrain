@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ public class BidderController {
     private BidderService bidderService;
 
     @RequestMapping(value = "/enroll", method = RequestMethod.POST)
+    @ResponseBody
     public Result enrollAuction(String auctionid, HttpServletRequest request){
         //忽略支付API的调用和确认，点击后就算已经确认过支付完成了
         String username = (String) request.getSession().getAttribute("username");
@@ -33,6 +35,7 @@ public class BidderController {
     }
 
     @RequestMapping(value = "/bidding", method = RequestMethod.POST)
+    @ResponseBody
     public Result bidding(String auctionid, BigDecimal price, HttpServletRequest request){
         String username = (String) request.getSession().getAttribute("username");
         int s = bidderService.bidding(auctionid, username, price);
@@ -80,6 +83,11 @@ public class BidderController {
     @RequestMapping(value = "/bidinglist")
     public String bidingList(){
         return "redirect:/bidinglist";
+    }
+
+    @RequestMapping(value = "/auctiondetails")
+    public String auctionDetails(String auctionid){
+        return "redirect:/auctiondetails?auctionid="+auctionid;
     }
 
 

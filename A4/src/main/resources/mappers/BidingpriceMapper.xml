@@ -115,7 +115,7 @@
 
   <select id="getBidingList" resultType="com.magus.a4.vo.SimpleBidingPrice">
     select bidingNo, price, bidingtime from bidingprice
-    where auctionid = #{auctionid} order by bidingtime desc
+    where auctionid = #{auctionid} order by price desc
     </select>
 
   <select id="getMaxBidingPrice" resultMap="BaseResultMap">

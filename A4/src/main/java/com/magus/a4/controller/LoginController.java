@@ -7,7 +7,6 @@ import com.magus.a4.pojo.Result;
 import com.magus.a4.service.CommonService;
 import com.magus.a4.utils.ResultUtil;
 import com.magus.a4.vo.*;
-import org.apache.shiro.dao.DataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,7 +77,15 @@ public class LoginController {
         } else if (role.equals("user")){
             Enrollment e = enrollmentMapper.getByAuctionidAndUsername(auctionid, username);
             if (e != null){
-                mv.setViewName("auction-details");
+                if (auction.getStatus()==1){
+                    mv.setViewName("auction-details");
+                } else if (auction.getStatus()==2){
+                    if (username.equals(auction.getWinner())){
+                        mv.setViewName("auction-confirm");
+                    } else {
+                        mv.setViewName("auction-over");
+                    }
+                }
             } else {
                 mv.setViewName("auction-unenrolled");
             }
@@ -103,9 +109,9 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/bidinglist")
+    @ResponseBody
     public Result bidingList(String auctionid){
         List<SimpleBidingPrice> bidingPrices = commonService.getBidingList(auctionid);
         return ResultUtil.success(bidingPrices);
     }
-
 }

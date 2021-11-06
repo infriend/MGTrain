@@ -12,9 +12,11 @@ import com.magus.a4.vo.Loginvo;
 import com.magus.a4.vo.RegisterVo;
 import com.magus.a4.vo.SimpleAuction;
 import com.magus.a4.vo.SimpleBidingPrice;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -44,7 +46,7 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public List<SimpleBidingPrice> getBidingList(String auctionid) {
+    public List<SimpleBidingPrice> getBidingList(@RequestParam("auctionid") String auctionid) {
         return bidingpriceMapper.getBidingList(auctionid);
     }
 

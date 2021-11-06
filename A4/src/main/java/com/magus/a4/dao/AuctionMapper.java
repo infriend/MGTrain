@@ -1,6 +1,7 @@
 package com.magus.a4.dao;
 
 import com.magus.a4.pojo.Auction;
+import com.magus.a4.vo.AuctioneerAuction;
 import com.magus.a4.vo.SimpleAuction;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +21,7 @@ public interface AuctionMapper {
 
     int updateByPrimaryKey(Auction record);
 
-    List<SimpleAuction> getAuctionsByAuctioneer(String auctioneer);
+    List<AuctioneerAuction> getAuctionsByAuctioneer(String auctioneer);
 
     List<Auction> getAuctionsGoingOn();
 

@@ -4,9 +4,11 @@ import com.magus.a4.dao.UserMapper;
 import com.magus.a4.pojo.User;
 import com.magus.a4.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class AdminServiceImpl implements AdminService {
     @Autowired
     private UserMapper userMapper;
@@ -29,6 +31,11 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<User> getActiveUserList() {
         return userMapper.getActiveUserList();
+    }
+
+    @Override
+    public List<User> getUncheckedList() {
+        return userMapper.getUncheckedList();
     }
 
 }

@@ -12,4 +12,6 @@ public interface AdminService {
     int checkAuctioneer(String username, short decision);
 
     List<User> getActiveUserList();
+
+    List<User> getUncheckedList();
 }
