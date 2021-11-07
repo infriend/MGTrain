@@ -120,4 +120,10 @@ public class LoginController {
         List<SimpleBidingPrice> bidingPrices = commonService.getBidingList(auctionid);
         return ResultUtil.success(bidingPrices);
     }
+
+    @RequestMapping(value = "/lawinfo")
+    public ModelAndView lawInfo(ModelAndView mv){
+        mv.setViewName("lawinfo");
+        return mv;
+    }
 }

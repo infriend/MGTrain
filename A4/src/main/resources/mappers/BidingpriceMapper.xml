@@ -114,8 +114,8 @@
   </update>
 
   <select id="getBidingList" resultType="com.magus.a4.vo.SimpleBidingPrice">
-    select bidingNo, price, bidingtime from bidingprice
-    where auctionid = #{auctionid} order by price desc
+    select username, price, bidingtime from bidingprice
+    where auctionid = #{auctionid} order by price asc
     </select>
 
   <select id="getMaxBidingPrice" resultMap="BaseResultMap">

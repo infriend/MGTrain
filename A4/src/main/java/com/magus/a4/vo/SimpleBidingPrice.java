@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Data
 public class SimpleBidingPrice implements Serializable {
-    private String bidingno;
+    private String username;
     private BigDecimal price;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") private Date bidingtime;
 }

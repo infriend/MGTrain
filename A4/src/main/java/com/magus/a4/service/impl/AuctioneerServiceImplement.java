@@ -67,8 +67,26 @@ public class AuctioneerServiceImplement implements AuctioneerService {
     public int finishAuction(String auctionid, String username) {
         Auction temp = auctionMapper.selectByPrimaryKey(auctionid);
         if (temp.getAuctioneer().equals(username)){
-            temp.setStatus((short) 2);//0暂停，1正常，2结束
             Bidingprice bidingprice = bidingpriceMapper.getMaxBidingPrice(auctionid);
+            if (bidingprice==null){
+                temp.setWinner("pass");
+                temp.setStatus((short) 2);
+                return auctionMapper.updateByPrimaryKey(temp);
+            } else {
+                Date time = bidingprice.getBidingtime();
+                long nd = 1000 * 24 * 60 * 60;
+                long nh = 1000 * 60 * 60;
+                long nm = 1000 * 60;
+                long ns = 1000;
+
+                Date nowtime = new Date();
+                long diff = nowtime.getTime() - time.getTime();
+                long sec = diff / ns;
+                if (sec <= 30){
+                    return 0;
+                }
+            }
+            temp.setStatus((short) 2);//0暂停，1正常，2结束
             temp.setWinner(bidingprice.getUsername());
             return auctionMapper.updateByPrimaryKey(temp);
         } else {

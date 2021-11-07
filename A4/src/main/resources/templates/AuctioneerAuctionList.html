@@ -52,22 +52,26 @@
                                         <td th:text="${a.startingprice}"></td>
                                         <td th:text="${a.starttime}"></td>
                                         <td th:text="${a.endtime}"></td>
-                                        <td th:text="${a.status}"></td>
+                                        <td th:if="${a.status} eq 0">暂停</td>
+                                        <td th:if="${a.status} eq 1">正常</td>
+                                        <td th:if="${a.status} eq 2">未支付</td>
+                                        <td th:if="${a.status} eq 3">已支付</td>
+                                        <td th:if="${a.status} eq 4">拒绝支付</td>
                                         <td class="td-manage">
                                              <a th:attr="onclick=|xadmin.open('拍卖详情','auctiondetails?auctionid='+'${a.auctionid}')|" href="javascript:;"  title="拍卖详情">
-                                                <i class="layui-icon">&#xe601;</i>
+                                                <span>详情</span>
                                             </a>
                                             <a th:attr="onclick=|xadmin.open('修改拍卖','editAuctionPage?auctionid='+'${a.auctionid}')|" href="javascript:;"  title="修改拍卖">
-                                                <i class="layui-icon">&#xe601;</i>
+                                                <span>修改</span>
                                             </a>
                                             <a th:attr="onclick=|member_finish(this,'${a.auctionid}')|" href="javascript:;"  title="结束拍卖">
-                                                <i class="layui-icon">&#xe601;</i>
+                                                <span>结束</span>
                                             </a>
                                             <a th:attr="onclick=|member_susp(this,'${a.auctionid}')|" href="javascript:;"  title="暂停拍卖">
-                                                <i class="layui-icon">&#xe601;</i>
+                                                <span>暂停</span>
                                             </a>
                                             <a th:attr="onclick=|member_restart(this,'${a.auctionid}')|" href="javascript:;"  title="恢复拍卖">
-                                                <i class="layui-icon">&#xe601;</i>
+                                                <span>恢复</span>
                                             </a>
                                         </td>
 
@@ -142,7 +146,7 @@
                     if (res["success"] == true) {
                         layer.msg('已暂停!', {icon: 1, time: 1000});
                     } else {
-                        layer.msg("暂停失败，检查网络！");
+                        layer.msg("暂停失败！");
                     }
                 })
 
@@ -156,7 +160,7 @@
                     if (res["success"] == true) {
                         layer.msg('已恢复!', {icon: 1, time: 1000});
                     } else {
-                        layer.msg("恢复失败，检查网络！");
+                        layer.msg("恢复失败！");
                     }
                 })
 
@@ -170,7 +174,7 @@
                     if (res["success"] == true) {
                         layer.msg('已结束!', {icon: 1, time: 1000});
                     } else {
-                        layer.msg("操作失败，检查网络！");
+                        layer.msg("操作失败！");
                     }
                 })
 
