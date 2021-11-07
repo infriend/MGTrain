@@ -42,6 +42,9 @@ public class CommonServiceImpl implements CommonService {
         } else if (!user.getPassword().equals(loginvo.getPassword())){
             return 1;
         }
+        if (user.getStatus()!=2){
+            return 0;
+        }
         return 2;
     }
 
